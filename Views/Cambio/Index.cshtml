@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "Casa de Cambio";
+}
+
+<div class="container">
+    <h2 class="mb-4">Conversor de Moneda</h2>
+    <form asp-action="CalcularCambio" method="post" class="row g-3">
+        <div class="col-md-4">
+            <label for="monedaOrigen" class="form-label">Envías:</label>
+            <select name="monedaOrigen" id="monedaOrigen" class="form-select">
+                <option value="BRL">Real Brasileño (BRL)</option>
+                <option value="PEN">Sol Peruano (PEN)</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="cantidad" class="form-label">Cantidad:</label>
+            <input type="number" name="cantidad" id="cantidad" class="form-control" required min="1" />
+        </div>
+        <div class="col-md-4">
+            <label for="monedaDestino" class="form-label">Recibes en:</label>
+            <select name="monedaDestino" id="monedaDestino" class="form-select">
+                <option value="PEN">Sol Peruano (PEN)</option>
+                <option value="BRL">Real Brasileño (BRL)</option>
+            </select>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Hacer Cambio</button>
+        </div>
+    </form>
+</div>
