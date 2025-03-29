@@ -36,7 +36,20 @@ namespace CasaDeCambio.Controllers
             return Math.Round(tasaCambio, 6);
         }
 
+        [HttpPost]
+        public IActionResult GenerarBoleta(string nombre, string documento, string email, decimal monto, string moneda)
+        {
+            var boleta = new Boleta
+            {
+                Nombre = nombre,
+                Documento = documento,
+                Email = email,
+                Monto = monto,
+                Moneda = moneda
+            };
 
+            return View("Boleta", boleta);
+        }
         
 
         
