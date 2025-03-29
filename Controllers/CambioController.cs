@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using CasaDeCambio.Models;
+
 namespace CasaDeCambio.Controllers
 {
     public class CambioController : Controller
@@ -8,20 +9,20 @@ namespace CasaDeCambio.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult CalcularCambio(string monedaOrigen, string monedaDestino, decimal cantidad)
+        {
+            decimal tasaCambio = ObtenerTasaCambio(monedaOrigen, monedaDestino);
+            decimal resultado = Math.Round(cantidad * tasaCambio, 2); 
 
-       [HttpPost]
-    public IActionResult CalcularCambio(string monedaOrigen, string monedaDestino, decimal cantidad)
-    {
-        decimal tasaCambio = ObtenerTasaCambio(monedaOrigen, monedaDestino);
-        decimal resultado = Math.Round(cantidad * tasaCambio, 2); 
+            ViewBag.MonedaOrigen = monedaOrigen;
+            ViewBag.MonedaDestino = monedaDestino;
+            ViewBag.Cantidad = cantidad;
+            ViewBag.Resultado = resultado;
 
-        ViewBag.MonedaOrigen = monedaOrigen;
-        ViewBag.MonedaDestino = monedaDestino;
-        ViewBag.Cantidad = cantidad;
-        ViewBag.Resultado = resultado;
+            return View("Resultado");
+        }
 
-        return View("Resultado");
-    }
 
         private decimal ObtenerTasaCambio(string monedaOrigen, string monedaDestino)
         {
@@ -32,23 +33,11 @@ namespace CasaDeCambio.Controllers
             else if (monedaOrigen == "PEN" && monedaDestino == "BRL")
                 tasaCambio = 1.577726m;
 
-            return Math.Round(tasaCambio, 6); 
-        }       
-
-        [HttpPost]
-        public IActionResult GenerarBoleta(string nombre, string documento, string email, decimal monto, string moneda)
-        {
-            var boleta = new Boleta
-            {
-                Nombre = nombre,
-                Documento = documento,
-                Email = email,
-                Monto = monto,
-                Moneda = moneda
-            };
-
-            return View("Boleta", boleta);
+            return Math.Round(tasaCambio, 6);
         }
+
+
+        
 
         
     }
